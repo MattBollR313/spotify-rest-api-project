@@ -4,6 +4,5 @@
 .project
 .apt_generated
 .apt_generated_tests
-.svn
 
 *.class
