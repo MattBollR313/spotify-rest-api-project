@@ -1,0 +1,114 @@
+package edu.psgv.sweng861;
+
+import com.wrapper.spotify.SpotifyApi;
+import com.wrapper.spotify.enums.ModelObjectType;
+import com.wrapper.spotify.exceptions.SpotifyWebApiException;
+import com.wrapper.spotify.model_objects.special.SearchResult;
+import com.wrapper.spotify.requests.data.search.SearchItemRequest;
+import com.wrapper.spotify.model_objects.specification.Artist;
+import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
+import com.wrapper.spotify.model_objects.specification.Paging;
+import org.apache.hc.core5.http.ParseException;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import java.util.ArrayList;
+
+/**
+ * Stores the data from the API request meant to be displayed
+ * later on by the JFrame window in SpotifyRestApiWindow
+ * @author Matthew Bollinger
+ *
+ */
+public class SpotifyRestApiData {
+	
+	private String[] artistNames = new String[5];
+	private ArrayList<ArrayList<String>> artistGenres = new ArrayList<ArrayList<String>>();
+	private int[] artistFollowers = new int[5];
+	private BufferedImage[] artistImages = new BufferedImage[5]; // Return BufferedImage to window class which gets casted to ImageIcon
+
+	private String[] trackNames = new String[5];
+	private String[] trackAlbums = new String[5];
+	private String[] trackAlbumReleaseDates = new String[5];
+	private ArrayList<ArrayList<String>> trackArtists = new ArrayList<ArrayList<String>>();
+	private int[] trackLengths = new int[5];
+	private String[] trackExplicits = new String[5];
+	private int[] trackDiscNumbers = new int[5];
+	private int[] trackTrkNumbers = new int[5];
+	private BufferedImage[] trackAlbumImages = new BufferedImage[5];	// Return BufferedImage to window class which gets casted to ImageIcon
+	
+	
+	public void setSearchData(SearchResult data, String type) {
+		if (type.equals("Artist")) {
+			setArtistNames(data);
+			setArtistGenres(data);
+			setArtistFollowers(data);
+			setArtistImages(data);
+		} else {
+			setTrackNames(data);
+			setTrackAlbums(data);
+			setTrackAlbumReleaseDates(data);
+			setTrackArtists(data);
+			setTrackLengths(data);
+			setTrackExplicits(data);
+			setTrackDiscNumbers(data);
+			setTrackTrkNumbers(data);
+			setTrackAlbumImages(data);
+		}
+	}
+	
+	private void setArtistNames(SearchResult data) {
+		
+	}
+	
+	private void setArtistGenres(SearchResult data) {
+
+	}
+	
+	private void setArtistFollowers(SearchResult data) {
+		
+	}
+	
+	private void setArtistImages(SearchResult data) {
+
+	}
+	
+	private void setTrackNames(SearchResult data) {
+		
+	}
+	
+	private void setTrackAlbums(SearchResult data) {
+
+	}
+	
+	private void setTrackAlbumReleaseDates(SearchResult data) {
+
+	}
+	
+	private void setTrackArtists(SearchResult data) {
+
+	}
+	
+	private void setTrackLengths(SearchResult data) {
+
+	}
+	
+	private void setTrackExplicits(SearchResult data) {
+		
+	}
+	
+	private void setTrackDiscNumbers(SearchResult data) {
+
+	}
+	
+	private void setTrackTrkNumbers(SearchResult data) {
+
+	}
+	
+	private void setTrackAlbumImages(SearchResult data) {
+
+	}
+	
+}

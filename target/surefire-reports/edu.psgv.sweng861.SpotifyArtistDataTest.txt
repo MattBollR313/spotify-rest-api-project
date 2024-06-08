@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: edu.psgv.sweng861.SpotifyArtistDataTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.87 s -- in edu.psgv.sweng861.SpotifyArtistDataTest

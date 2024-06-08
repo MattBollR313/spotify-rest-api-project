@@ -1,0 +1,93 @@
+package edu.psgv.sweng861;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class SpotifyTrackDataTest {
+
+	// Can't test images due to unique id attached to every BufferedImage object
+
+	SpotifyRestRequester projectApi = new SpotifyRestRequester();
+	SpotifyTrackData trackData;
+
+	@BeforeEach
+	void setUp() throws Exception {
+		trackData = projectApi.searchSong("Avid");
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+	}
+
+	@Test
+	public void testTrackNames() {
+		ArrayList<String> trackNames = trackData.getTrackNames();
+		ArrayList<String> expectedNames = new ArrayList<>(Arrays.asList("Avid", "Avidya", "Starlight Brigade",
+				"Avid (From \"86 eighty six\") - Cover", "Avidity"));
+		assertEquals(trackNames, expectedNames);
+	}
+
+	@Test
+	public void testTrackAlbums() {
+		ArrayList<String> trackAlbums = trackData.getTrackAlbums();
+		ArrayList<String> expectedAlbums = new ArrayList<>(Arrays.asList("Avid", "Gaia Sagrada",
+				"Together Through Time", "86 eighty six: English Cover Collection", "Simplicity"));
+		assertEquals(trackAlbums, expectedAlbums);
+	}
+
+	@Test
+	public void testTrackAlbumReleaseDates() {
+		ArrayList<String> trackAlbumReleaseDates = trackData.getTrackAlbumReleaseDates();
+		ArrayList<String> expectedAlbumReleaseDates = new ArrayList<>(
+				Arrays.asList("2021-04-25", "2019-02-05", "2018-05-18", "2021-07-16", "2016-07-01"));
+		assertEquals(trackAlbumReleaseDates, expectedAlbumReleaseDates);
+	}
+
+	@Test
+	public void testTrackArtist() {
+		ArrayList<ArrayList<String>> trackArtists = trackData.getTrackArtists();
+		ArrayList<ArrayList<String>> expectedArtists = new ArrayList<ArrayList<String>>();
+		expectedArtists.add(new ArrayList<String>(Arrays.asList("SawanoHiroyuki[nZk]:mizuki")));
+		expectedArtists.add(new ArrayList<String>(Arrays.asList("Little Symphony")));
+		expectedArtists.add(new ArrayList<String>(Arrays.asList("TWRP", "Dan Avidan")));
+		expectedArtists.add(new ArrayList<String>(Arrays.asList("Mewsic")));
+		expectedArtists.add(new ArrayList<String>(Arrays.asList("Carsten Dahl")));
+		assertEquals(trackArtists, expectedArtists);
+	}
+
+	@Test
+	public void testTrackLengths() {
+		ArrayList<Integer> trackLengths = trackData.getTrackLengths();
+		ArrayList<Integer> expectedLengths = new ArrayList<>(Arrays.asList(250293, 104000, 328706, 255384, 118561));
+		assertEquals(trackLengths, expectedLengths);
+	}
+
+	@Test
+	public void testTrackExplicits() {
+		ArrayList<String> trackExplicits = trackData.getTrackExplicits();
+		ArrayList<String> expectedExplicits = new ArrayList<>(
+				Arrays.asList("false", "false", "false", "false", "false"));
+		assertEquals(trackExplicits, expectedExplicits);
+	}
+
+	@Test
+	public void testTrackDiscNumbers() {
+		ArrayList<Integer> trackDiscNumbers = trackData.getTrackDiscNumbers();
+		ArrayList<Integer> expectedDiscNumbers = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1));
+		assertEquals(trackDiscNumbers, expectedDiscNumbers);
+	}
+
+	@Test
+	public void testTrackTrkNumbers() {
+		ArrayList<Integer> trackTrkNumbers = trackData.getTrackTrkNumbers();
+		ArrayList<Integer> expectedTrkNumbers = new ArrayList<>(Arrays.asList(1, 3, 9, 1, 6));
+		assertEquals(trackTrkNumbers, expectedTrkNumbers);
+	}
+
+}

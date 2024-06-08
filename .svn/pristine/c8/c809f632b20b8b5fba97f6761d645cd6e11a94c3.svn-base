@@ -1,0 +1,88 @@
+package edu.psgv.sweng861;
+
+import com.wrapper.spotify.SpotifyApi;
+import com.wrapper.spotify.enums.ModelObjectType;
+import com.wrapper.spotify.exceptions.SpotifyWebApiException;
+import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
+import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
+import com.wrapper.spotify.model_objects.special.SearchResult;
+import com.wrapper.spotify.requests.data.search.SearchItemRequest;
+import com.wrapper.spotify.model_objects.specification.Paging;
+import org.apache.hc.core5.http.ParseException;
+import java.io.IOException;
+
+
+public class SpotifyRestApiProject {
+	
+	private static final String clientId = "b943ce1978d0450da72739cdd3fea06b";
+	private static final String clientSecret = "c0381d85c81c4562b24ff69a1dfa11ee";
+
+	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder().setClientId(clientId).setClientSecret(clientSecret).build();
+
+	public static void getAccessToken() {
+		try {
+			final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials().build();
+			final ClientCredentials clientCredentials = clientCredentialsRequest.execute();
+			
+			String accessToken = clientCredentials.getAccessToken();
+
+			// Set access token for further "spotifyApi" object usage
+			spotifyApi.setAccessToken(accessToken);
+
+			System.out.println("Expires in: " + clientCredentials.getExpiresIn());
+		} catch (IOException | SpotifyWebApiException | ParseException e) { // Make more in depth exception catching
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+
+	/**
+	 * Given the name input in by user as well as a newly created
+	 * SpotifyRestApiData class, send data from request to
+	 * SpotifyRestApiData as a SearchResult where it then stores
+	 * the data
+	 * @param name is the name of the artist meant to be searched
+	 */
+	public static SpotifyArtistData searchArtist(String name) {
+		try {
+			final String artistName = name;
+			final String type = ModelObjectType.ARTIST.getType();
+
+			final SearchItemRequest searchArtistsRequest = spotifyApi.searchItem(artistName, type).limit(5).build();
+
+			final SearchResult searchResult = searchArtistsRequest.execute();
+			
+			SpotifyArtistData dataHolder = new SpotifyArtistData(searchResult);
+			return dataHolder;
+		} catch (IOException | SpotifyWebApiException | ParseException e) { // Make more in depth exception catching
+			System.out.println("Error: " + e.getMessage());
+			return null;
+		}
+	}
+	
+	public static SpotifyTrackData searchSong(String name) {
+		try {
+			final String songName = name;
+			final String type = ModelObjectType.TRACK.getType();
+			// Search using name and type with a limit of five results
+			final SearchItemRequest searchArtistsRequest = spotifyApi.searchItem(songName, type).limit(5).build();
+
+			final SearchResult searchResult = searchArtistsRequest.execute();
+			
+			SpotifyTrackData dataHolder = new SpotifyTrackData(searchResult);
+			return dataHolder;
+		} catch (IOException | SpotifyWebApiException | ParseException e) {	// Make more in depth exception catching
+			System.out.println("Error: " + e.getMessage());
+			return null;
+		}
+	}
+
+	public static void main(String[] args) {
+		getAccessToken();
+		SpotifyArtistData artistData = searchArtist("Abba");
+		System.out.println(artistData.getArtistNames().toString());
+		System.out.println();
+		SpotifyTrackData songData = searchSong("Mine Woman");
+		System.out.println(songData.getTrackNames().toString());
+	}
+
+}
